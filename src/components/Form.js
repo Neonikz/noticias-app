@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelect } from '../hooks/useSelect';
 import styles from './Form.module.css'
 
-export const Form = () => {
+export const Form = ({setCategory}) => {
 
     const options = [
         { value:'general', label:'General' },
@@ -17,10 +17,19 @@ export const Form = () => {
     //Utilizamos el hook
     const [ category, SelectNews ] = useSelect('technology',options);
 
+    //Submit del form, pasar categoria al NewsApp
+    const handleSubmit = e => {
+        e.preventDefault();
+        setCategory(category);
+    }
+
+
     return (
         <div className={ `${styles.buscador} row` }>
             <div className="col s12 m8 offset-m2">
-                <form>
+                <form
+                    onSubmit={ handleSubmit }
+                >
                     <h1 className={styles.heading}>Encuentra noticias por categoria</h1>
 
                     <SelectNews />
